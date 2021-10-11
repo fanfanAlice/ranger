@@ -22,17 +22,17 @@
 	</property>
 	<property>
 		<name>ranger.jpa.jdbc.url</name>
-		<value>jdbc:log4jdbc:mysql://localhost/ranger</value>
+		<value>jdbc:log4jdbc:mysql://localhost:3306/ranger</value>
 		<description></description>
 	</property>
 	<property>
 		<name>ranger.jpa.jdbc.user</name>
-		<value>rangeradmin</value>
+		<value>root</value>
 		<description></description>
 	</property>
 	<property>
 		<name>ranger.jpa.jdbc.password</name>
-		<value>rangeradmin</value>
+		<value>123456</value>
 		<description></description>
 	</property>
 	<property>
@@ -76,7 +76,7 @@
 	</property>
 	<property>
 		<name>ranger.audit.solr.urls</name>
-		<value>http://##solr_host##:6083/solr/ranger_audits</value>
+		<value>http://localhost:6083/solr/ranger_audits</value>
 		<description></description>
 	</property>
 	<property>

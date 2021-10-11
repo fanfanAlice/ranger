@@ -1,0 +1,244 @@
+{
+  "id": 301,
+  "name": "kyligence",
+  "displayName": "kyligence",
+  "implClass": "org.apache.ranger.services.kyligence.RangerServiceKyligence",
+  "label": "Kyligence",
+  "description": "Kyligence",
+  "guid": "be68625a-63a4-ccfb-e89c-a2c465cf79c4",
+  "resources": [
+    {
+      "itemId": 1,
+      "name": "project",
+      "type": "string",
+      "level": 10,
+      "parent": "",
+      "mandatory": true,
+      "isValidLeaf": true,
+      "lookupSupported": true,
+      "recursiveSupported": false,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Kyligence Project",
+      "description": "Kyligence Project"
+    },
+    {
+      "itemId": 2,
+      "name": "database",
+      "type": "string",
+      "level": 20,
+      "parent": "project",
+      "mandatory": true,
+      "isValidLeaf": true,
+      "lookupSupported": true,
+      "recursiveSupported": false,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Kyligence Database",
+      "description": "Kyligence Database"
+    },
+    {
+      "itemId": 3,
+      "name": "table",
+      "type": "string",
+      "level": 30,
+      "parent": "database",
+      "mandatory": true,
+      "isValidLeaf": true,
+      "lookupSupported": true,
+      "recursiveSupported": false,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Kyligence Table",
+      "description": "Kyligence Table"
+    },
+    {
+      "itemId": 4,
+      "name": "column",
+      "type": "string",
+      "level": 40,
+      "parent": "table",
+      "mandatory": true,
+      "lookupSupported": true,
+      "recursiveSupported": false,
+      "excludesSupported": true,
+      "matcher": "org.apache.ranger.plugin.resourcematcher.RangerDefaultResourceMatcher",
+      "matcherOptions": {
+        "wildCard": true,
+        "ignoreCase": true
+      },
+      "validationRegEx": "",
+      "validationMessage": "",
+      "uiHint": "",
+      "label": "Kyligence Column",
+      "description": "Kyligence Column"
+    }
+  ],
+  "accessTypes": [
+    {
+      "itemId": 1,
+      "name": "QUERY",
+      "label": "QUERY"
+    },
+    {
+      "itemId": 2,
+      "name": "OPERATION",
+      "label": "OPERATION"
+    },
+    {
+      "itemId": 3,
+      "name": "MANAGEMENT",
+      "label": "MANAGEMENT"
+    },
+    {
+      "itemId": 4,
+      "name": "ADMIN",
+      "label": "ADMIN"
+    },
+    {
+      "itemId": 5,
+      "name": "SELECT",
+      "label": "SELECT"
+    }
+  ],
+  "configs": [
+    {
+      "itemId": 1,
+      "name": "username",
+      "type": "string",
+      "mandatory": true,
+      "validationRegEx":"",
+      "validationMessage": "",
+      "uiHint":"",
+      "label": "Username"
+    },
+    {
+      "itemId": 2,
+      "name": "password",
+      "type": "password",
+      "mandatory": true,
+      "validationRegEx":"",
+      "validationMessage": "",
+      "uiHint":"",
+      "label": "Password"
+    },
+    {
+      "itemId": 3,
+      "name": "kyligence.url",
+      "type": "string",
+      "mandatory": true,
+      "defaultValue": "",
+      "validationRegEx":"",
+      "validationMessage": "",
+      "uiHint":"{\"TextFieldWithIcon\":true, \"info\": \"1.For one url, eg.<br>'http://&lt;ipaddr&gt;:7070'<br>2.For multiple urls (use , or ; delimiter), eg.<br>'http://&lt;ipaddr1&gt;:7070,http://&lt;ipaddr2&gt;:7070'\"}",
+      "label": "Kyligence URL"
+    }
+  ],
+  "enums": [
+  ],
+  "contextEnrichers": [
+  ],
+  "policyConditions":
+  [
+  ],
+  "dataMaskDef": {
+    "accessTypes": [
+      {
+        "name": "select"
+      }
+    ],
+    "resources": [
+      {
+        "name": "project",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "uiHint":"{ \"singleValue\":true }"
+      },
+      {
+        "name": "database",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "uiHint":"{ \"singleValue\":true }"
+      },
+      {
+        "name": "table",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "uiHint":"{ \"singleValue\":true }"
+      },
+      {
+        "name": "column",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "uiHint":"{ \"singleValue\":true }"
+      }
+    ],
+    "maskTypes": [
+    ]
+  },
+  "rowFilterDef": {
+    "accessTypes": [
+      {
+        "name": "select"
+      }
+    ],
+    "resources": [
+      {
+        "name": "project",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "mandatory": true,
+        "uiHint": "{ \"singleValue\":true }"
+      },
+      {
+        "name": "database",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "mandatory": true,
+        "uiHint": "{ \"singleValue\":true }"
+      },
+      {
+        "name": "table",
+        "matcherOptions": {
+          "wildCard": "true"
+        },
+        "lookupSupported": true,
+        "mandatory": true,
+        "uiHint": "{ \"singleValue\":true }"
+      }
+    ]
+  }
+}
