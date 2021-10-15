@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.29">
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/main/java/org/apache/ranger/services/kyligence/RangerServiceKyligence.java">
+</file>
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/main/java/org/apache/ranger/services/kyligence/client/impl/KEClientImpl.java">
+</file>
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/main/java/org/apache/ranger/services/kyligence/client/IClient.java">
+</file>
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/main/java/org/apache/ranger/services/kyligence/client/KyligenceClient.java">
+</file>
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/main/java/org/apache/ranger/services/kyligence/client/KyligenceResourceMgr.java">
+</file>
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/main/java/org/apache/ranger/services/kyligence/client/KyligenceConnectionManager.java">
+</file>
+<file name="/Users/fanfan.li/gitaccount/SE_TEAM/ranger/kyligence-agent/src/test/java/org/apache/ranger/authorization/kyligence/authorizer/TestKyligenceClient.java">
+</file>
+</checkstyle>

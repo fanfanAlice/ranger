@@ -1,3 +1,20 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.apache.ranger.services.kyligence.client;
 
 import com.google.common.collect.Lists;
@@ -35,13 +52,13 @@ public class KyligenceClient extends BaseClient {
         this.password = configs.get("password");
 
         if (StringUtils.isEmpty(this.kylinUrl)) {
-            LOG.error("No value found for configuration 'kyligence.url'. kyligence resource lookup will fail.");
+            LOG.info("No value found for configuration 'kyligence.url'. kyligence resource lookup will fail.");
         }
         if (StringUtils.isEmpty(this.userName)) {
-            LOG.error("No value found for configuration 'username'. kyligence resource lookup will fail.");
+            LOG.info("No value found for configuration 'username'. kyligence resource lookup will fail.");
         }
         if (StringUtils.isEmpty(this.password)) {
-            LOG.error("No value found for configuration 'password'. kyligence resource lookup will fail.");
+            LOG.info("No value found for configuration 'password'. kyligence resource lookup will fail.");
         }
 
         if (LOG.isDebugEnabled()) {
@@ -134,7 +151,7 @@ public class KyligenceClient extends BaseClient {
         }
         if (MapUtils.isEmpty(configs)) {
             String msgDesc = "Could not connect kylin as connection configMap is empty.";
-            LOG.error(msgDesc);
+            LOG.info(msgDesc);
             HadoopException hdpException = new HadoopException(msgDesc);
             hdpException.generateResponseDataMap(false, msgDesc, msgDesc + ERROR_MESSAGE, null, null);
             throw hdpException;

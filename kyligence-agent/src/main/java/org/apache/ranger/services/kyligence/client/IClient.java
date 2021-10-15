@@ -1,8 +1,21 @@
-package org.apache.ranger.services.kyligence.client;
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import org.apache.ranger.services.kyligence.client.json.model.AclTCRRequest;
-import org.apache.ranger.services.kyligence.client.json.model.AclTCRResponse;
-import org.apache.ranger.services.kyligence.client.json.model.ProjectPermission;
+package org.apache.ranger.services.kyligence.client;
 
 import java.io.IOException;
 import java.util.List;
@@ -17,21 +30,4 @@ public interface IClient {
 
     List<String> getColumns(String project, String database, String table, String column) throws IOException;
 
-    //获取项目级访问权限
-    List<ProjectPermission> getProjectPermission(String project, String userOrGroupName) throws Exception;
-
-    //授予项目级访问权限
-    void grantProjectPermission(String project, String type, String permission, String[] names) throws Exception;
-
-    //更新项目级访问权限
-    void updateProjectPermission(String project, String type, String permission, String name) throws Exception;
-
-    //删除项目级访问权限
-    void deleteProjectPermission(String project, String type, String name) throws Exception;
-
-    //获取表行列级权限
-    List<AclTCRResponse> getAclList(String type, String name, String project, boolean authorized_only) throws Exception;
-
-    //更新表行列级权限
-    void updateAcl(String type, String name, String project, AclTCRRequest request) throws Exception;
 }
