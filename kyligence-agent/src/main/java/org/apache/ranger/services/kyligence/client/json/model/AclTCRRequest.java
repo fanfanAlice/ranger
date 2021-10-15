@@ -97,6 +97,18 @@ public class AclTCRRequest {
         public void setRowFilter(RowFilter rowFilter) {
             this.rowFilter = rowFilter;
         }
+
+        @Override
+        public String toString() {
+            return "Table{" +
+                    "tableName='" + tableName + '\'' +
+                    ", authorized=" + authorized +
+                    ", columns=" + columns +
+                    ", rows=" + rows +
+                    ", likeRows=" + likeRows +
+                    ", rowFilter=" + rowFilter +
+                    '}';
+        }
     }
 
 
@@ -286,5 +298,13 @@ public class AclTCRRequest {
         public void setValues(String[] values) {
             this.values = values;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "AclTCRRequest{" +
+                "databaseName='" + databaseName + '\'' +
+                ", tables=" + tables.toString() +
+                '}';
     }
 }
