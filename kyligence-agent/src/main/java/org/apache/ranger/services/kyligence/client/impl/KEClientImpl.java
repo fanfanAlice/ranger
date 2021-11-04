@@ -31,6 +31,7 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class KEClientImpl implements IClient {
 
@@ -44,9 +45,9 @@ public class KEClientImpl implements IClient {
     }
 
     @Override
-    public List<String> getProjectList() throws IOException {
-        String url = baseUrl + "projects?pageSize=1000";
-        JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
+    public List<String> getProjectList(String project) throws IOException {
+        String url = baseUrl + "projects?pageSize=1000&project=" + project;
+        JsonObject data = new JsonParser().parse(sendV2(url)).getAsJsonObject();
         if (null == data)
             throw new RuntimeException("Failed to get Kyligence projects by api: " + url);
         List<String> list = Lists.newArrayList();
@@ -63,26 +64,31 @@ public class KEClientImpl implements IClient {
     @Override
     public List<String> getDatabases(String project, String database) throws IOException {
         List<String> list = Lists.newArrayList();
-        JsonArray projects = getProjectTableNames(project, database);
-        for (int i = 0; i < projects.size(); i++) {
-            JsonObject jsonObject = projects.get(i).getAsJsonObject();
+        JsonArray databases = getProjectTableNames(project, database);
+        for (int i = 0; i < databases.size(); i++) {
+            JsonObject jsonObject = databases.get(i).getAsJsonObject();
             String name = jsonObject.get("dbname").getAsString();
-            list.add(name);
+            if ("*".equals(database) || "".equals(database) || name.contains(database.toUpperCase())) {
+                list.add(name);
+            }
         }
         return list;
     }
 
     @Override
-    public List<String> getTables(String project, List<String> database, String table) throws IOException {
+    public List<String> getTables(String project, String database, String table) throws IOException {
         List<String> list = Lists.newArrayList();
         JsonArray projects = getProjectTableNames(project, table);
         for (int i = 0; i < projects.size(); i++) {
             JsonObject jsonObject = projects.get(i).getAsJsonObject();
             String dbname = jsonObject.get("dbname").getAsString();
-            if (database.contains(dbname)) {
-                JsonArray tables = jsonObject.getAsJsonArray("tables");
-                for (int j = 0; j < tables.size(); j++) {
-                    String table_name = tables.get(j).getAsJsonObject().get("table_name").getAsString();
+            if (!database.equals(dbname)) {
+                continue;
+            }
+            JsonArray tables = jsonObject.getAsJsonArray("tables");
+            for (int j = 0; j < tables.size(); j++) {
+                String table_name = tables.get(j).getAsJsonObject().get("name").getAsString();
+                if ("*".equals(table) || "".equals(table) || table_name.contains(table.toUpperCase())) {
                     list.add(table_name);
                 }
             }
@@ -90,8 +96,15 @@ public class KEClientImpl implements IClient {
         return list;
     }
 
+    public int getProjectSourceType(String project) throws IOException {
+        String url = String.format(this.baseUrl + "projects/%s/project_config", project);
+        JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
+        return "null".equals(data.get("data").getAsJsonObject().get("jdbc_source_connection_url").toString()) ? 9 : 8;
+    }
+
     private JsonArray getProjectTableNames(String project, String table) throws IOException {
-        String url = String.format(baseUrl + "tables/project_table_names?project=%s&data_source_type=9&table=%s&page_offset=0&page_size=1000", project, table);
+        int sourceType = getProjectSourceType(project);
+        String url = String.format(baseUrl + "tables/project_tables?project=%s&page_offset=0&page_size=1000&table=%s&source_type=%s&ext=true", project, table, sourceType);
         JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
         if (null == data)
             throw new RuntimeException("Failed to get Kyligence projects by api: " + url);
@@ -101,7 +114,8 @@ public class KEClientImpl implements IClient {
 
     @Override
     public List<String> getColumns(String project, String database, String table, String column) throws IOException {
-        String url = String.format(baseUrl + "tables?project=%s&database=%s&table=%s&is_fuzzy=false&source_type=9&ext=true", project, database, table);
+        int projectSourceType = getProjectSourceType(project);
+        String url = String.format(baseUrl + "tables?project=%s&database=%s&table=%s&is_fuzzy=false&source_type=%s&ext=true", project, database, table, projectSourceType);
         JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
         if (null == data)
             throw new RuntimeException("Failed to get Kyligence projects by api: " + url);
@@ -111,11 +125,16 @@ public class KEClientImpl implements IClient {
         for (int i = 0; i < columns.size(); i++) {
             JsonObject jsonObject = columns.get(i).getAsJsonObject();
             String name = jsonObject.get("name").getAsString();
-            if (column == null || name.contains(column.toUpperCase())) {
+            if ("*".equals(column) || "".equals(column) || name.contains(column.toUpperCase())) {
                 list.add(name);
             }
         }
-        return list;
+        list.add("*");
+        return list.stream().distinct().collect(Collectors.toList());
+    }
+
+    public String sendV2(String urlStr) throws IOException {
+        return send(urlStr, "GET", null, "application/vnd.apache.kylin-v2+json");
     }
 
     private String sendV4(String urlStr) throws IOException {

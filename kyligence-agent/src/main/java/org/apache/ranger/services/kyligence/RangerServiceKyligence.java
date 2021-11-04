@@ -24,6 +24,7 @@ import org.apache.ranger.plugin.client.HadoopConfigHolder;
 import org.apache.ranger.plugin.model.RangerPolicy;
 import org.apache.ranger.plugin.service.RangerBaseService;
 import org.apache.ranger.plugin.service.ResourceLookupContext;
+import org.apache.ranger.plugin.util.PasswordUtils;
 import org.apache.ranger.services.kyligence.client.KyligenceResourceMgr;
 
 import java.util.*;
@@ -63,19 +64,19 @@ public class RangerServiceKyligence extends RangerBaseService {
     public Map<String, Object> validateConfig() throws Exception {
         Map<String, Object> ret = new HashMap<>();
         String serviceName = getServiceName();
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("==> RangerServiceKyligence.validateConfig Service: (" + serviceName + " )");
+        if (null != configs.get(HadoopConfigHolder.RANGER_LOGIN_PASSWORD)) {
+            configs.put("kyligence.password", configs.get(HadoopConfigHolder.RANGER_LOGIN_PASSWORD));
         }
         if (configs != null) {
             try {
                 ret = KyligenceResourceMgr.validateConfig(serviceName, configs);
             } catch (Exception e) {
-                LOG.error("<== RangerServiceKyligence.validateConfig Error:" + e);
+                LOG.info("<== RangerServiceKyligence.validateConfig Error:" + e);
                 throw e;
             }
         }
         if (LOG.isDebugEnabled()) {
-            LOG.debug("<== RangerServiceKyligence.validateConfig Response : (" + ret + " )");
+            LOG.info("<== RangerServiceKyligence.validateConfig Response : (" + ret + " )");
         }
         return ret;
     }
@@ -85,23 +86,16 @@ public class RangerServiceKyligence extends RangerBaseService {
         List<String> ret = new ArrayList<String>();
         String serviceName = getServiceName();
         String serviceType = getServiceType();
-        Map<String, String> configs = getConfigs();
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("==> RangerServiceKyligence.lookupResource() Context: (" + context + ")");
+        if (null != configs.get(HadoopConfigHolder.RANGER_LOGIN_PASSWORD)) {
+            configs.put("kyligence.password", PasswordUtils.decryptPassword(configs.get(HadoopConfigHolder.RANGER_LOGIN_PASSWORD)));
         }
         if (context != null) {
             try {
-                if (!configs.containsKey(HadoopConfigHolder.RANGER_LOGIN_PASSWORD)) {
-                    configs.put(HadoopConfigHolder.RANGER_LOGIN_PASSWORD, null);
-                }
                 ret = KyligenceResourceMgr.getKylinResources(serviceName, serviceType, configs, context);
             } catch (Exception e) {
-                LOG.error("<==RangerServiceKyligence.lookupResource() Error : " + e);
+                LOG.info("<==RangerServiceKyligence.lookupResource() Error : " + e);
                 throw e;
             }
-        }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("<== RangerServiceKyligence.lookupResource() Response: (" + ret + ")");
         }
         return ret;
     }

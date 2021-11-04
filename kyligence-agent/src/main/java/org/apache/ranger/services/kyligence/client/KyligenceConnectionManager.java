@@ -75,7 +75,7 @@ public class KyligenceConnectionManager {
                 }
             } else {
                 try {
-                    kyligenceClient.getProjectList("*", null);
+                    kyligenceClient.getProjectList("");
                 } catch (Exception e) {
                     kyligenceConnectionCache.remove(serviceName);
                     kyligenceClient = getKyligenceConnection(serviceName, serviceType, configs);

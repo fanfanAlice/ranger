@@ -22,11 +22,11 @@ import java.util.List;
 
 public interface IClient {
 
-    List<String> getProjectList() throws IOException;
+    List<String> getProjectList(String project) throws IOException;
 
     List<String> getDatabases(String project, String database) throws IOException;
 
-    List<String> getTables(String project, List<String> database, String table) throws IOException;
+    List<String> getTables(String project, String database, String table) throws IOException;
 
     List<String> getColumns(String project, String database, String table, String column) throws IOException;
 
