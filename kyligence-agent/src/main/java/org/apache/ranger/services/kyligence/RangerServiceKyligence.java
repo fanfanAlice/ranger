@@ -17,7 +17,6 @@
 
 package org.apache.ranger.services.kyligence;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ranger.plugin.client.HadoopConfigHolder;
@@ -27,7 +26,10 @@ import org.apache.ranger.plugin.service.ResourceLookupContext;
 import org.apache.ranger.plugin.util.PasswordUtils;
 import org.apache.ranger.services.kyligence.client.KyligenceResourceMgr;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class RangerServiceKyligence extends RangerBaseService {
 
@@ -42,7 +44,7 @@ public class RangerServiceKyligence extends RangerBaseService {
         }
 
         List<RangerPolicy> ret = super.getDefaultRangerPolicies();
-        for (RangerPolicy defaultPolicy : ret) {
+        /*for (RangerPolicy defaultPolicy : ret) {
             if (defaultPolicy.getName().contains("all") && StringUtils.isNotBlank(lookUpUser)) {
                 List<RangerPolicy.RangerPolicyItemAccess> accessListForLookupUser = new ArrayList<RangerPolicy.RangerPolicyItemAccess>();
                 accessListForLookupUser.add(new RangerPolicy.RangerPolicyItemAccess(ACCESS_TYPE_SELECT));
@@ -52,7 +54,7 @@ public class RangerServiceKyligence extends RangerBaseService {
                 policyItemForLookupUser.setDelegateAdmin(false);
                 defaultPolicy.getPolicyItems().add(policyItemForLookupUser);
             }
-        }
+        }*/
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("<== RangerServiceKyligence.getDefaultRangerPolicies()");
@@ -83,7 +85,7 @@ public class RangerServiceKyligence extends RangerBaseService {
 
     @Override
     public List<String> lookupResource(ResourceLookupContext context) throws Exception {
-        List<String> ret = new ArrayList<String>();
+        List<String> ret = new ArrayList<>();
         String serviceName = getServiceName();
         String serviceType = getServiceType();
         if (null != configs.get(HadoopConfigHolder.RANGER_LOGIN_PASSWORD)) {

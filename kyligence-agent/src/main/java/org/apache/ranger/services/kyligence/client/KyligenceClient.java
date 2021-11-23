@@ -113,9 +113,9 @@ public class KyligenceClient extends BaseClient {
     }
 
     public List<String> getDatabaseList(String finalSchemaName, String project) throws IOException {
+        List<String> databaseList = Lists.newLinkedList();
         LOG.info("KyligenceClient getDatabaseList finalSchemaName: " + finalSchemaName + ", project: " + project);
         IClient client = new KEClientImpl(kylinUrl, userName, password);
-        List<String> databaseList = Lists.newLinkedList();
         databaseList.addAll(client.getDatabases(project, finalSchemaName));
         LOG.info("Kyligence database size : " + databaseList.size());
         if (CollectionUtils.isEmpty(databaseList)) {

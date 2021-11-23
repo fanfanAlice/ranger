@@ -58,10 +58,30 @@ public class TestKyligenceClient {
 
     @Test
     public void testGetDatabases() {
-        IClient client = new KEClientImpl("http://10.1.2.181:7097", "admin", "test@1234");
+        Map<String, String> map = Maps.newHashMap();
+        map.put("kyligence.url", "http://10.1.6.18:7070");
+        map.put("username", "ADMIN");
+        map.put("kyligence.password", "KYLIN");
+        KyligenceClient client = new KyligenceClient("kyligence", map);
         try {
-            List<String> databases = client.getDatabases("test_gbase", "t");
+            List<String> databases = client.getDatabaseList("F", "kylin_test");
             System.out.println(databases);
+            List<String> tables = client.getTableList("f", "kylin_test", "FDM");
+            System.out.println(tables);
+            List<String> columns = client.getColumnList("c", "kylin_test", "FDM", "F00_AREAINFOTREE_EXT");
+            System.out.println(columns);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+
+        IClient client1 = new KEClientImpl("http://10.1.2.181:7079", "ADMIN", "test@1234");
+        try {
+            List<String> databases = client1.getDatabases("testHive", "E");
+            System.out.println(databases);
+            List<String> tables = client1.getTables("testHive", "SSB", "C");
+            System.out.println(tables);
+            List<String> columns = client1.getColumns("testHive", "SSB", "CUSTOMER", "c");
+            System.out.println(columns);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

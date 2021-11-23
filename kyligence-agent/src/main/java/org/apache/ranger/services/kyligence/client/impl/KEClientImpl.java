@@ -99,7 +99,8 @@ public class KEClientImpl implements IClient {
     public int getProjectSourceType(String project) throws IOException {
         String url = String.format(this.baseUrl + "projects/%s/project_config", project);
         JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
-        return "null".equals(data.get("data").getAsJsonObject().get("jdbc_source_connection_url").toString()) ? 9 : 8;
+        return (data.get("data").getAsJsonObject().get("jdbc_source_connection_url") == null ||
+                "null".equals(data.get("data").getAsJsonObject().get("jdbc_source_connection_url").toString())) ? 9 : 8;
     }
 
     private JsonArray getProjectTableNames(String project, String table) throws IOException {
