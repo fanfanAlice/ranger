@@ -26,8 +26,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Ignore
 public class TestKyligenceClient {
@@ -35,9 +34,10 @@ public class TestKyligenceClient {
     @Test
     public void testGetProjectList() {
         Map<String, String> configs = Maps.newConcurrentMap();
-        configs.put("kyligence.url", "http://10.1.2.181:7097");
+        configs.put("kyligence.url", "http://10.1.2.181:7079");
         configs.put("username", "admin");
         configs.put("password", "test@1234");
+        configs.put("kyligence.password", "test@1234");
         try {
             Map<String, Object> kyligence = KyligenceClient.connectionTest("kyligence", configs);
             System.out.println(kyligence);
@@ -59,31 +59,21 @@ public class TestKyligenceClient {
     @Test
     public void testGetDatabases() {
         Map<String, String> map = Maps.newHashMap();
-        map.put("kyligence.url", "http://10.1.6.18:7070");
+        map.put("kyligence.url", "http://10.1.2.181:7079");
         map.put("username", "ADMIN");
-        map.put("kyligence.password", "KYLIN");
+        map.put("kyligence.password", "test@1234");
         KyligenceClient client = new KyligenceClient("kyligence", map);
-        try {
-            List<String> databases = client.getDatabaseList("F", "kylin_test");
-            System.out.println(databases);
-            List<String> tables = client.getTableList("f", "kylin_test", "FDM");
-            System.out.println(tables);
-            List<String> columns = client.getColumnList("c", "kylin_test", "FDM", "F00_AREAINFOTREE_EXT");
-            System.out.println(columns);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        List<String> databases = client.getDatabaseList("E", "testHive");
+        System.out.println(databases);
+        List<String> tables = client.getTableList("C", "testHive", Arrays.asList("DEFAULT_TEST", "MYHIVE_YMB"));
+        System.out.println(tables);
+        List<String> columns = client.getColumnList("c", "testHive", Arrays.asList("DEFAULT_TEST", "MYHIVE_YMB", "SSB"), Arrays.asList("DEFAULT_TEST.TEST_KYLIN_FACT", "MYHIVE_YMB.DATES_PARTITION"));
+        System.out.println(columns);
 
         IClient client1 = new KEClientImpl("http://10.1.2.181:7079", "ADMIN", "test@1234");
-        try {
-            List<String> databases = client1.getDatabases("testHive", "E");
-            System.out.println(databases);
-            List<String> tables = client1.getTables("testHive", "SSB", "C");
-            System.out.println(tables);
-            List<String> columns = client1.getColumns("testHive", "SSB", "CUSTOMER", "c");
-            System.out.println(columns);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+
+        System.out.println(client1.getDatabases("testHive", "E"));
+        System.out.println(client1.getTables("testHive", Collections.singletonList("SSB"), "C"));
+        System.out.println(client1.getColumns("testHive", Collections.singletonList("SSB"), Collections.singletonList("SSB.CUSTOMER"), "c"));
     }
 }

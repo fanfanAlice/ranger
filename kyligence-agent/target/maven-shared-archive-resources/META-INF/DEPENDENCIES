@@ -7,6 +7,8 @@ Kyligence Security Plugin
 
 
 From: 'an unknown organization'
+  - AWS SDK for Java - Bundle (https://aws.amazon.com/sdkforjava) com.amazonaws:aws-java-sdk-bundle:jar:1.12.125
+    License: Apache License, Version 2.0  (https://aws.amazon.com/apache2.0)
   - compiler (http://github.com/spullara/mustache.java) com.github.spullara.mustache.java:compiler:jar:0.9.6
     License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
   - JCIP Annotations under Apache License (http://stephenc.github.com/jcip-annotations) com.github.stephenc.jcip:jcip-annotations:jar:1.0-1
@@ -31,8 +33,6 @@ From: 'an unknown organization'
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - ParaNamer Core (http://paranamer.codehaus.org/paranamer) com.thoughtworks.paranamer:paranamer:jar:2.3
     License: BSD  (LICENSE.txt)
-  - Metrics Core Library (http://metrics.codahale.com/metrics-core/) com.yammer.metrics:metrics-core:jar:2.2.0
-    License: Apache License 2.0  (http://www.apache.org/licenses/LICENSE-2.0.html)
   - dnsjava (http://www.dnsjava.org) dnsjava:dnsjava:jar:2.1.7
     License: BSD 2-Clause license  (http://opensource.org/licenses/BSD-2-Clause)
   - Google S2 geometry library (https://github.com/sgr-io/s2-geometry-library-java) io.sgr:s2-geometry-library-java:jar:1.0.0
@@ -43,11 +43,9 @@ From: 'an unknown organization'
     License: LGPL, version 2.1  (http://www.gnu.org/licenses/licenses.html)    License: Apache License v2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - Java Native Access Platform (https://github.com/java-native-access/jna) net.java.dev.jna:jna-platform:jar:5.2.0
     License: LGPL, version 2.1  (http://www.gnu.org/licenses/licenses.html)    License: Apache License v2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
-  - JOpt Simple (http://jopt-simple.github.io/jopt-simple) net.sf.jopt-simple:jopt-simple:jar:5.0.4
+  - JOpt Simple (http://pholser.github.io/jopt-simple) net.sf.jopt-simple:jopt-simple:jar:5.0.2
     License: The MIT License  (http://www.opensource.org/licenses/mit-license.php)
-  - Apache Kafka (https://kafka.apache.org) org.apache.kafka:kafka-clients:jar:2.5.0
-    License: The Apache Software License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Apache Kafka (https://kafka.apache.org) org.apache.kafka:kafka_2.12:jar:2.5.0
+  - Apache Kafka (https://kafka.apache.org) org.apache.kafka:kafka-clients:jar:2.8.1
     License: The Apache Software License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
   - Checker Qual (https://checkerframework.org) org.checkerframework:checker-qual:jar:2.5.2
     License: The MIT License  (http://opensource.org/licenses/MIT)
@@ -110,17 +108,9 @@ From: 'Chemouni Uriel' (https://urielch.github.io/)
   - JSON Small and Fast Parser (https://urielch.github.io/) net.minidev:json-smart:bundle:2.3.1
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
 
-From: 'com.fasterxml.jackson.module'
-  - jackson-module-scala (http://wiki.fasterxml.com/JacksonModuleScala) com.fasterxml.jackson.module:jackson-module-scala_2.12:bundle:2.10.2
-    License: The Apache Software License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
-
 From: 'com.github.luben'
-  - zstd-jni (https://github.com/luben/zstd-jni) com.github.luben:zstd-jni:jar:1.4.4-7
+  - zstd-jni (https://github.com/luben/zstd-jni) com.github.luben:zstd-jni:jar:1.4.9-1
     License: BSD 2-Clause License  (https://opensource.org/licenses/BSD-2-Clause)
-
-From: 'com.typesafe.scala-logging' (https://github.com/lightbend/scala-logging)
-  - scala-logging (https://github.com/lightbend/scala-logging) com.typesafe.scala-logging:scala-logging_2.12:bundle:3.9.2
-    License: Apache 2.0 License  (http://www.apache.org/licenses/LICENSE-2.0.html)
 
 From: 'Connect2id Ltd.' (https://connect2id.com)
   - Nimbus JOSE+JWT (https://bitbucket.org/connect2id/nimbus-jose-jwt) com.nimbusds:nimbus-jose-jwt:jar:8.22.1
@@ -147,15 +137,9 @@ From: 'FasterXML' (http://fasterxml.com/)
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - Jackson dataformat: CBOR (http://github.com/FasterXML/jackson-dataformats-binary) com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:bundle:2.8.11
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Jackson-dataformat-CSV (https://github.com/FasterXML/jackson-dataformats-text) com.fasterxml.jackson.dataformat:jackson-dataformat-csv:bundle:2.10.2
-    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - Jackson dataformat: Smile (http://github.com/FasterXML/jackson-dataformats-binary) com.fasterxml.jackson.dataformat:jackson-dataformat-smile:bundle:2.8.11
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - Jackson-dataformat-YAML (https://github.com/FasterXML/jackson) com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:bundle:2.8.11
-    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Jackson datatype: jdk8 (https://github.com/FasterXML/jackson-modules-java8/jackson-datatype-jdk8) com.fasterxml.jackson.datatype:jackson-datatype-jdk8:bundle:2.10.2
-    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Jackson module: Paranamer (https://github.com/FasterXML/jackson-modules-base) com.fasterxml.jackson.module:jackson-module-paranamer:bundle:2.10.2
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
 
 From: 'fasterxml.com' (http://fasterxml.com)
@@ -181,12 +165,6 @@ From: 'JCraft,Inc.' (http://www.jcraft.com/)
 From: 'Joda.org' (https://www.joda.org)
   - Joda-Time (https://www.joda.org/joda-time/) joda-time:joda-time:jar:2.10.6
     License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
-
-From: 'LAMP/EPFL' (https://lamp.epfl.ch/)
-  - Scala Library (https://www.scala-lang.org/) org.scala-lang:scala-library:jar:2.12.10
-    License: Apache-2.0  (https://www.apache.org/licenses/LICENSE-2.0)
-  - Scala Compiler (https://www.scala-lang.org/) org.scala-lang:scala-reflect:jar:2.12.10
-    License: Apache-2.0  (https://www.apache.org/licenses/LICENSE-2.0)
 
 From: 'LocationTech' (http://www.locationtech.org/)
   - Spatial4J (https://projects.eclipse.org/projects/locationtech.spatial4j) org.locationtech.spatial4j:spatial4j:bundle:0.7
@@ -220,18 +198,12 @@ From: 'Oracle Corporation' (http://www.oracle.com/)
   - jaxb-api (https://github.com/javaee/jaxb-spec/jaxb-api) javax.xml.bind:jaxb-api:jar:2.3.1
     License: CDDL 1.1  (https://oss.oracle.com/licenses/CDDL+GPL-1.1)    License: GPL2 w/ CPE  (https://oss.oracle.com/licenses/CDDL+GPL-1.1)
 
-From: 'org.scala-lang.modules' (http://www.scala-lang.org/)
-  - scala-collection-compat (http://www.scala-lang.org/) org.scala-lang.modules:scala-collection-compat_2.12:bundle:2.1.3
-    License: Apache-2.0  (https://www.apache.org/licenses/LICENSE-2.0)
-  - scala-java8-compat (http://www.scala-lang.org/) org.scala-lang.modules:scala-java8-compat_2.12:jar:0.9.0
-    License: BSD 3-clause  (http://opensource.org/licenses/BSD-3-Clause)
-
 From: 'QOS.ch' (http://www.qos.ch)
-  - JCL 1.2 implemented over SLF4J (http://www.slf4j.org) org.slf4j:jcl-over-slf4j:jar:1.7.24
-    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
-  - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.7.25
-    License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
-  - SLF4J LOG4J-12 Binding (http://www.slf4j.org) org.slf4j:slf4j-log4j12:jar:1.7.25
+  - Logback Classic Module (http://logback.qos.ch/logback-classic) ch.qos.logback:logback-classic:jar:1.2.10
+    License: Eclipse Public License - v 1.0  (http://www.eclipse.org/legal/epl-v10.html)    License: GNU Lesser General Public License  (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
+  - Logback Core Module (http://logback.qos.ch/logback-core) ch.qos.logback:logback-core:jar:1.2.10
+    License: Eclipse Public License - v 1.0  (http://www.eclipse.org/legal/epl-v10.html)    License: GNU Lesser General Public License  (http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
+  - SLF4J API Module (http://www.slf4j.org) org.slf4j:slf4j-api:jar:1.7.32
     License: MIT License  (http://www.opensource.org/licenses/mit-license.php)
 
 From: 'Sun Microsystems, Inc' (http://www.sun.com/)
@@ -247,7 +219,7 @@ From: 'The Apache Software Foundation' (http://www.apache.org/)
     License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - Commons Lang (http://commons.apache.org/lang/) commons-lang:commons-lang:jar:2.6
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Apache Commons Logging (http://commons.apache.org/proper/commons-logging/) commons-logging:commons-logging:jar:1.2
+  - Commons Logging (http://commons.apache.org/proper/commons-logging/) commons-logging:commons-logging:jar:1.1.3
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
   - Apache Avro (http://avro.apache.org) org.apache.avro:avro:bundle:1.7.7
     License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
@@ -353,10 +325,6 @@ From: 'The Apache Software Foundation' (https://www.apache.org/)
     License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
   - Token provider (http://directory.apache.org/kerby/kerby-provider/token-provider) org.apache.kerby:token-provider:jar:1.0.1
     License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Apache Log4j API (https://logging.apache.org/log4j/2.x/log4j-api/) org.apache.logging.log4j:log4j-api:jar:2.13.3
-    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
-  - Apache Log4j Core (https://logging.apache.org/log4j/2.x/log4j-core/) org.apache.logging.log4j:log4j-core:jar:2.13.3
-    License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
   - ORC Core (http://orc.apache.org/orc-core) org.apache.orc:orc-core:jar:1.5.8
     License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
   - ranger-plugin-classloader (http://maven.apache.org) org.apache.ranger:ranger-plugin-classloader:jar:3.0.0-SNAPSHOT
@@ -371,24 +339,6 @@ From: 'The Apache Software Foundation' (https://www.apache.org/)
     License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
   - Apache ZooKeeper - Jute (http://zookeeper.apache.org/zookeeper-jute) org.apache.zookeeper:zookeeper-jute:jar:3.5.6
     License: Apache License, Version 2.0  (https://www.apache.org/licenses/LICENSE-2.0.txt)
-
-From: 'The Netty Project' (https://netty.io/)
-  - Netty/Buffer (https://netty.io/netty-buffer/) io.netty:netty-buffer:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Codec (https://netty.io/netty-codec/) io.netty:netty-codec:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Common (https://netty.io/netty-common/) io.netty:netty-common:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Handler (https://netty.io/netty-handler/) io.netty:netty-handler:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Resolver (https://netty.io/netty-resolver/) io.netty:netty-resolver:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Transport (https://netty.io/netty-transport/) io.netty:netty-transport:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Transport/Native/Epoll (https://netty.io/netty-transport-native-epoll/) io.netty:netty-transport-native-epoll:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
-  - Netty/Transport/Native/Unix/Common (https://netty.io/netty-transport-native-unix-common/) io.netty:netty-transport-native-unix-common:jar:4.1.42.Final
-    License: Apache License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)
 
 From: 'Webtide' (https://webtide.com)
   - Jetty :: Asynchronous HTTP Client (https://eclipse.org/jetty/jetty-client) org.eclipse.jetty:jetty-client:jar:9.4.44.v20210927
@@ -410,9 +360,9 @@ From: 'Webtide' (https://webtide.com)
   - Jetty :: XML utilities (http://www.eclipse.org/jetty) org.eclipse.jetty:jetty-xml:jar:9.4.20.v20190813
     License: Apache Software License - Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0)    License: Eclipse Public License - Version 1.0  (http://www.eclipse.org/org/documents/epl-v10.php)
 
-From: 'xerial.org' (http://www.xerial.org/)
-  - Snappy for Java (http://github.com/xerial/snappy-java/) org.xerial.snappy:snappy-java:bundle:1.0.5
-    License: The Apache Software License, Version 2.0  (http://www.apache.org/licenses/LICENSE-2.0.txt)
+From: 'xerial.org' (https://github.com/xerial/snappy-java)
+  - snappy-java (https://github.com/xerial/snappy-java) org.xerial.snappy:snappy-java:bundle:1.1.8.1
+    License: Apache-2.0  (https://www.apache.org/licenses/LICENSE-2.0.html)
 
 
 

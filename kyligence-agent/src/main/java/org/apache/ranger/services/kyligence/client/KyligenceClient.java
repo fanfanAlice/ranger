@@ -60,12 +60,7 @@ public class KyligenceClient extends BaseClient {
         }
 
         IClient client = new KEClientImpl(kylinUrl, userName, password);
-        List<String> projectList = null;
-        try {
-            projectList = client.getProjectList(projectMatching);
-        } catch (IOException ioException) {
-            LOG.error("<== KyligenceClient.getProjectList() :Unable to get the Project List", ioException);
-        }
+        List<String> projectList = client.getProjectList(projectMatching);
         if (CollectionUtils.isEmpty(projectList)) {
             return Collections.emptyList();
         }
@@ -112,7 +107,7 @@ public class KyligenceClient extends BaseClient {
         return kylinClient;
     }
 
-    public List<String> getDatabaseList(String finalSchemaName, String project) throws IOException {
+    public List<String> getDatabaseList(String finalSchemaName, String project) {
         List<String> databaseList = Lists.newLinkedList();
         LOG.info("KyligenceClient getDatabaseList finalSchemaName: " + finalSchemaName + ", project: " + project);
         IClient client = new KEClientImpl(kylinUrl, userName, password);
@@ -124,24 +119,26 @@ public class KyligenceClient extends BaseClient {
         return databaseList;
     }
 
-    public List<String> getTableList(String finalTableName, String project, String database) throws IOException {
-        LOG.info("KyligenceClient getTableList finalTableName: " + finalTableName + ", project: " + project + ", database: " + database);
+    public List<String> getTableList(String finalTableName, String project, List<String> databases) {
+        LOG.info("KyligenceClient getTableList finalTableName: " + finalTableName + ", project: " + project + ", database: " + databases);
         IClient client = new KEClientImpl(kylinUrl, userName, password);
         List<String> tableLists = Lists.newLinkedList();
-        tableLists.addAll(client.getTables(project, database, finalTableName));
-        LOG.info("Kyligence table size : " + tableLists.size());
+        List<String> tables = client.getTables(project, databases, finalTableName);
+        tableLists.addAll(tables);
+        LOG.info("Kyligence table size is: " + tableLists.size());
         if (CollectionUtils.isEmpty(tableLists)) {
             return Collections.emptyList();
         }
         return tableLists;
     }
 
-    public List<String> getColumnList(String finalColumnName, String project, String database, String table) throws IOException {
-        LOG.info("KyligenceClient getColumnList finalColumnName: " + finalColumnName + ", project: " + project + ", database: " + database + ", table: " + table);
+    public List<String> getColumnList(String finalColumnName, String project, List<String> databases, List<String> tables) {
+        LOG.info("KyligenceClient getColumnList finalColumnName: " + finalColumnName + ", project: " + project + ", database: " + databases + ", table: " + tables);
         IClient client = new KEClientImpl(kylinUrl, userName, password);
         List<String> columnLists = Lists.newLinkedList();
-        columnLists.addAll(client.getColumns(project, database, table, finalColumnName));
-        LOG.info("Kyligence column size : " + columnLists.size());
+        List<String> columns = client.getColumns(project, databases, tables, finalColumnName);
+        columnLists.addAll(columns);
+        LOG.info("Kyligence column size is: " + columnLists.size());
         if (CollectionUtils.isEmpty(columnLists)) {
             return Collections.emptyList();
         }

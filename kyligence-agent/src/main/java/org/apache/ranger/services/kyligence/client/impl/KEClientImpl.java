@@ -22,6 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.log4j.Logger;
 import org.apache.ranger.services.kyligence.client.IClient;
 
 import java.io.*;
@@ -35,6 +36,8 @@ import java.util.stream.Collectors;
 
 public class KEClientImpl implements IClient {
 
+    private static final Logger LOG = Logger.getLogger(KEClientImpl.class);
+
     private final String baseUrl;
 
     private final String encodeKey;
@@ -45,53 +48,66 @@ public class KEClientImpl implements IClient {
     }
 
     @Override
-    public List<String> getProjectList(String project) throws IOException {
+    public List<String> getProjectList(String project) {
+        List<String> list = Lists.newArrayList();
         String url = baseUrl + "projects?pageSize=1000&project=" + project;
-        JsonObject data = new JsonParser().parse(sendV2(url)).getAsJsonObject();
-        if (null == data)
-            throw new RuntimeException("Failed to get Kyligence projects by api: " + url);
-        List<String> list = Lists.newArrayList();
-        JsonObject object = data.getAsJsonObject("data");
-        JsonArray projects = object.getAsJsonArray("projects");
-        for (int i = 0; i < projects.size(); i++) {
-            JsonObject jsonObject = projects.get(i).getAsJsonObject();
-            String name = jsonObject.get("name").getAsString();
-            list.add(name);
-        }
-        return list;
-    }
-
-    @Override
-    public List<String> getDatabases(String project, String database) throws IOException {
-        List<String> list = Lists.newArrayList();
-        JsonArray databases = getProjectTableNames(project, database);
-        for (int i = 0; i < databases.size(); i++) {
-            JsonObject jsonObject = databases.get(i).getAsJsonObject();
-            String name = jsonObject.get("dbname").getAsString();
-            if ("*".equals(database) || "".equals(database) || name.contains(database.toUpperCase())) {
+        try {
+            JsonObject data = new JsonParser().parse(sendV2(url)).getAsJsonObject();
+            if (null == data)
+                throw new RuntimeException("Failed to get Kyligence projects by api: " + url);
+            JsonObject object = data.getAsJsonObject("data");
+            JsonArray projects = object.getAsJsonArray("projects");
+            for (int i = 0; i < projects.size(); i++) {
+                JsonObject jsonObject = projects.get(i).getAsJsonObject();
+                String name = jsonObject.get("name").getAsString();
                 list.add(name);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
     @Override
-    public List<String> getTables(String project, String database, String table) throws IOException {
+    public List<String> getDatabases(String project, String database) {
         List<String> list = Lists.newArrayList();
-        JsonArray projects = getProjectTableNames(project, table);
-        for (int i = 0; i < projects.size(); i++) {
-            JsonObject jsonObject = projects.get(i).getAsJsonObject();
-            String dbname = jsonObject.get("dbname").getAsString();
-            if (!database.equals(dbname)) {
-                continue;
-            }
-            JsonArray tables = jsonObject.getAsJsonArray("tables");
-            for (int j = 0; j < tables.size(); j++) {
-                String table_name = tables.get(j).getAsJsonObject().get("name").getAsString();
-                if ("*".equals(table) || "".equals(table) || table_name.contains(table.toUpperCase())) {
-                    list.add(table_name);
+        try {
+            JsonArray databases = getProjectTableNames(project, database);
+            for (int i = 0; i < databases.size(); i++) {
+                JsonObject jsonObject = databases.get(i).getAsJsonObject();
+                String name = jsonObject.get("dbname").getAsString();
+                if ("".equals(database) || name.contains(database.toUpperCase())) {
+                    list.add(name);
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<String> getTables(String project, List<String> databases, String table) {
+        List<String> list = Lists.newArrayList();
+        try {
+            JsonArray projects = getProjectTableNames(project, "");
+            LOG.info("getTables get return json is: " + projects.toString());
+            for (int i = 0; i < projects.size(); i++) {
+                JsonObject jsonObject = projects.get(i).getAsJsonObject();
+                String dbname = jsonObject.get("dbname").getAsString();
+                if (!databases.contains(dbname)) {
+                    continue;
+                }
+                JsonArray tables = jsonObject.getAsJsonArray("tables");
+                for (int j = 0; j < tables.size(); j++) {
+                    String table_name = tables.get(j).getAsJsonObject().get("name").getAsString();
+                    if ("".equals(table) || table_name.contains(table.toUpperCase())) {
+                        list.add(dbname + "." + table_name);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return list;
     }
@@ -114,23 +130,33 @@ public class KEClientImpl implements IClient {
     }
 
     @Override
-    public List<String> getColumns(String project, String database, String table, String column) throws IOException {
-        int projectSourceType = getProjectSourceType(project);
-        String url = String.format(baseUrl + "tables?project=%s&database=%s&table=%s&is_fuzzy=false&source_type=%s&ext=true", project, database, table, projectSourceType);
-        JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
-        if (null == data)
-            throw new RuntimeException("Failed to get Kyligence projects by api: " + url);
+    public List<String> getColumns(String project, List<String> databases, List<String> tables, String column) {
         List<String> list = Lists.newArrayList();
-        JsonObject object = data.getAsJsonObject("data");
-        JsonArray columns = object.getAsJsonArray("tables").get(0).getAsJsonObject().getAsJsonArray("columns");
-        for (int i = 0; i < columns.size(); i++) {
-            JsonObject jsonObject = columns.get(i).getAsJsonObject();
-            String name = jsonObject.get("name").getAsString();
-            if ("*".equals(column) || "".equals(column) || name.contains(column.toUpperCase())) {
-                list.add(name);
+        try {
+            int projectSourceType = getProjectSourceType(project);
+            for (String t : tables) {
+                String[] split = t.split("\\.");
+                String url = String.format(baseUrl + "tables?project=%s&database=%s&table=%s&is_fuzzy=false&source_type=%s&ext=true", project, split[0], split[1], projectSourceType);
+                JsonObject data = new JsonParser().parse(sendV4(url)).getAsJsonObject();
+                if (null == data)
+                    throw new RuntimeException("Failed to get Kyligence getColumns by api: " + url);
+                JsonObject object = data.getAsJsonObject("data");
+                JsonArray keTables = object.getAsJsonArray("tables");
+                if (keTables == null || keTables.size() == 0) {
+                    return list;
+                }
+                JsonArray columns = object.getAsJsonArray("tables").get(0).getAsJsonObject().getAsJsonArray("columns");
+                for (int i = 0; i < columns.size(); i++) {
+                    JsonObject jsonObject = columns.get(i).getAsJsonObject();
+                    String name = jsonObject.get("name").getAsString();
+                    if ("".equals(column) || name.contains(column.toUpperCase())) {
+                        list.add(t + "." + name);
+                    }
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        list.add("*");
         return list.stream().distinct().collect(Collectors.toList());
     }
 

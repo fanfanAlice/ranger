@@ -17,17 +17,16 @@
 
 package org.apache.ranger.services.kyligence.client;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface IClient {
 
-    List<String> getProjectList(String project) throws IOException;
+    List<String> getProjectList(String project);
 
-    List<String> getDatabases(String project, String database) throws IOException;
+    List<String> getDatabases(String project, String database);
 
-    List<String> getTables(String project, String database, String table) throws IOException;
+    List<String> getTables(String project, List<String> database, String table);
 
-    List<String> getColumns(String project, String database, String table, String column) throws IOException;
+    List<String> getColumns(String project, List<String> databases, List<String> tables, String column);
 
 }

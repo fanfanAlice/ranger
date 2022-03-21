@@ -55,7 +55,7 @@ public class KyligenceResourceMgr {
     }
 
     public static List<String> getKylinResources(String serviceName, String serviceType, Map<String, String> configs,
-                                                 ResourceLookupContext context) throws Exception {
+                                                 ResourceLookupContext context) {
         String userInput = context.getUserInput();
         String resourceName = context.getResourceName();
         Map<String, List<String>> resourceMap = context.getResources();
@@ -73,15 +73,12 @@ public class KyligenceResourceMgr {
                 }
                 case TABLE: {
                     String project = resourceMap.get(PROJECT).get(0);
-                    String database = resourceMap.get(DATABASE).get(0);
-                    resultList = kyligenceClient.getTableList(userInput, project, database);
+                    resultList = kyligenceClient.getTableList(userInput, project, resourceMap.get(DATABASE));
                     break;
                 }
                 case COLUMN: {
                     String project = resourceMap.get(PROJECT).get(0);
-                    String database = resourceMap.get(DATABASE).get(0);
-                    String table = resourceMap.get(TABLE).get(0);
-                    resultList = kyligenceClient.getColumnList(userInput, project, database, table);
+                    resultList = kyligenceClient.getColumnList(userInput, project, resourceMap.get(DATABASE), resourceMap.get(TABLE));
                     break;
                 }
             }
